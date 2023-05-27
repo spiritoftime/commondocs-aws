@@ -14,12 +14,24 @@ const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../../config/database.js")[env];
 const db = {};
 let sequelize;
-
-// Fall back to separate environment variables in development
-sequelize = new Sequelize(config.database, config.username, config.password, {
-  dialect: "postgres", // Specify the dialect explicitly
-  ...config, // Include other configuration options
-});
+if (env === "production") {
+  const sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    {
+      host: config.host,
+      dialect: "postgres",
+      ...config,
+    }
+  );
+} else {
+  // Fall back to separate environment variables in development
+  sequelize = new Sequelize(config.database, config.username, config.password, {
+    dialect: "postgres", // Specify the dialect explicitly
+    ...config, // Include other configuration options
+  });
+}
 
 // fs
 //   .readdirSync(__dirname)
