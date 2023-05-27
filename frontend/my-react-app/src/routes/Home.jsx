@@ -23,6 +23,7 @@ const Home = () => {
   });
 
   if (isFetching) return "Loading...";
+  console.log(error);
   if (error) return "An error has occurred: " + error.message;
   return (
     <Box sx={{ padding: { xs: 2, s: 4, sm: "64px 64px 0 64px", lg: 8 } }}>

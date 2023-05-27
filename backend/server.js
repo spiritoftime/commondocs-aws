@@ -25,16 +25,7 @@ const path = require("path");
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../frontend/my-react-app/dist");
 app.use(express.static(buildPath));
-app.get("/*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname, "../frontend/my-react-app/dist/index.html"),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
-    }
-  );
-});
+
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -111,15 +102,28 @@ io.on("connection", (socket) => {
     io.to(newDocumentId).emit("users", [...documentToUsers[newDocumentId]]);
   });
 });
+
 app.use("/", authRouter);
 app.use("/documents", authenticateToken, documentRouter);
 app.use("/users", authenticateToken, userRouter);
 app.use("/folders", authenticateToken, folderRouter);
 app.use("/folderAccess", authenticateToken, folderAccessRouter);
 app.use("/documentAccess", authenticateToken, documentAccessRouter);
-// app.get("/posts", authenticateToken, (req, res) => {
-//   res.status(200).json({ message: "you made it!" });
-// });
+
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "../frontend/my-react-app/dist/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
+
+app.get("/posts", authenticateToken, (req, res) => {
+  res.status(200).json({ message: "you made it!" });
+});
 
 const port =
   process.env.NODE_ENV === "production"

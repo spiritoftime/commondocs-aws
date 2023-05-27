@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const getFolders = async (req, res) => {
   try {
     const { userId } = req.query;
+    console.log(userId);
     const myFolders = await Folder.findAll({
       where: { createdBy: userId },
       attributes: ["text", "updatedAt"],
@@ -62,6 +63,7 @@ const getFolders = async (req, res) => {
         },
       ],
     });
+
     res.status(200).json({ myFolders, sharedFolders });
   } catch (error) {
     console.error(error);
