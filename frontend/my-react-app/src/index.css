@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.quill .ql-container.ql-snow {
+  min-height: 11.7in;
+
+  border: none;
+}
+.node-input {
+  font-size: 12px;
+  line-height: 23px;
+  box-sizing: content-box;
+  letter-spacing: 0.15px;
+  cursor: text;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 31px;
+  margin-bottom: 8px;
+}
+.MuiBox-root.css-k008qs ul {
+  list-style: none;
+}
+#toolbar {
+  border: none;
+
+  padding: 16px 0 !important;
+  background-color: rgb(247, 249, 252);
+}
+
+.ql-snow .ql-picker {
+  color: rgb(110, 126, 141);
+}
+#toolbar .ql-formats.dark {
+  background-color: rgb(247, 249, 252);
+  padding: 4px 6px;
+}
+.ql-formats {
+  margin-right: 0 !important ;
+}
+.ql-active {
+  background-color: rgb(214, 228, 252);
+}
+
+.animate-show {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.animate-hide {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.ql-font-Arial {
+  font-family: Arial, sans-serif;
+}
+
+.ql-font-ComicSansMS {
+  font-family: "Comic Sans MS", cursive;
+}
+
+.ql-font-CourierNew {
+  font-family: "Courier New", monospace;
+}
+
+.ql-font-Georgia {
+  font-family: Georgia, serif;
+}
+
+.ql-font-Helvetica {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.ql-font-LucidaSansUnicode {
+  font-family: "Lucida Sans Unicode", sans-serif;
+}
+.hero-img {
+  height: 100%;
+  width: 100%;
+}
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 2px solid;
+  padding-right: 5px;
+  white-space: nowrap;
+  font-weight: lighter;
+  margin: 0 auto;
+  animation: typing 2s steps(20, end), cursor 1.5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes cursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: inherit;
+  }
+}
+.hide {
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateX(-100%);
+  transition: all 1s;
+}
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion) {
+  .hide {
+    transition: none;
+  }
+}
