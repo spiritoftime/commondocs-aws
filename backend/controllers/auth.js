@@ -124,7 +124,7 @@ function generateTokensAndCookies(username, isRefresh, res) {
     sameSite: process.env.NODE_ENV === "production" ? "None" : "lax",
     domain:
       process.env.NODE_ENV === "production" &&
-      "commondocs-backend.onrender.com",
+      "13.229.215.120",
   });
 
   res.setHeader("Authorization", "Bearer " + accessToken);

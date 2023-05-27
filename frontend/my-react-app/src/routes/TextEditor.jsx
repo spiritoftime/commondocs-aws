@@ -55,7 +55,7 @@ export default function TextEditor() {
   useEffect(() => {
     const backendURL =
       import.meta.env.VITE_ENV === "production"
-        ? "https://commondocs-backend.onrender.com"
+        ? "13.229.215.120"
         : "http://localhost:3001";
     const s = io(backendURL);
     const handleScroll = () => {
