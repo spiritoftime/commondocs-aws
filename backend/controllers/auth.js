@@ -119,12 +119,10 @@ function generateTokensAndCookies(username, isRefresh, res) {
   const accessToken = generateToken(payload, "access", "15min");
   const refreshToken = generateToken(payload, "refresh", "3h");
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: process.env.NODE_ENV === "production" ? true : false,
-    secure: process.env.NODE_ENV === "production" ? true : false,
-    sameSite: process.env.NODE_ENV === "production" ? "None" : "lax",
-    domain:
-      process.env.NODE_ENV === "production" &&
-      "13.229.215.120",
+    httpOnly: false,
+    secure: false,
+    sameSite: "lax",
+    domain: process.env.NODE_ENV === "production" && "13.229.215.120",
   });
 
   res.setHeader("Authorization", "Bearer " + accessToken);
