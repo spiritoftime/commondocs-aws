@@ -15,16 +15,11 @@ const config = require(__dirname + "/../../config/database.js")[env];
 const db = {};
 let sequelize;
 if (env === "production") {
-  const sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    {
-      host: config.host,
-      dialect: "postgres",
-      ...config,
-    }
-  );
+  sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: "postgres",
+    ...config,
+  });
 } else {
   // Fall back to separate environment variables in development
   sequelize = new Sequelize(config.database, config.username, config.password, {
