@@ -2,9 +2,7 @@
 
 <code><img src="https://commondocs.vercel.app/assets/image-removebg-preview-09ec5f7e.png" alt="commondocs-preview"></code>
 
-# [AWS Deployment Link](http://13.229.215.120/)
-
-# [Vercel,Render Deployment Link](https://commondocs.vercel.app/)
+# Deployed on AWS: [Deployed Link](http://13.229.215.120/)
 
 ## Full Stack Application for users to collaborate, edit and organize documents. _Project 3 for Rocket Academy Bootcamp_
 
