@@ -12,26 +12,28 @@ import DocumentBar from "../components/DocumentBar";
 import NestedFolders from "../components/NestedFolders";
 import { useNavigate } from "react-router-dom";
 import ReactQuillBar, { formats, modules } from "../components/ReactQuillBar";
-
+import useReLoginMutation from "../../reactQueryMutations/useReLoginMutation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 const SAVE_INTERVAL_MS = 1000;
 
 export default function TextEditor() {
-  const { authDetails, setIsLoadingAuth, isDarkMode } = useAppContext();
-  const { id: documentId } = useParams();
-
+  const { authDetails, setAuthDetails, setIsLoadingAuth, isDarkMode } =
+    useAppContext();
   const [documentTitle, setDocumentTitle] = useState("Untitled Document");
   const [accessType, setAccessType] = useState("");
-  const [socket, setSocket] = useState();
-  const [scrolled, setScrolled] = useState(false);
-  const [residingFolder, setResidingFolder] = useState(null);
+  const { id: documentId } = useParams();
   const [users, setUsers] = useState([]);
+  const reloginMutation = useReLoginMutation();
   const [documentSaved, setDocumentSaved] = useState("All changes saved!");
   const navigate = useNavigate();
   const quillRef = useRef();
   const saveTimeout = useRef(null);
+  const [socket, setSocket] = useState();
+  const [scrolled, setScrolled] = useState(false);
+
+  const [residingFolder, setResidingFolder] = useState(null);
   const paddingTop = scrolled ? "80px" : "16px";
   const theme = useTheme();
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
@@ -53,8 +55,8 @@ export default function TextEditor() {
   useEffect(() => {
     const backendURL =
       import.meta.env.VITE_ENV === "production"
-        ? "https://commondocs-backend.onrender.com"
-        : "http://localhost:3000";
+        ? "13.229.215.120"
+        : "http://localhost:3001";
     const s = io(backendURL);
     const handleScroll = () => {
       const isScrolled = window.scrollY > 0;
@@ -83,8 +85,10 @@ export default function TextEditor() {
       (document, title, residingFolder, accessType) => {
         setDocumentTitle(title);
         setResidingFolder(residingFolder);
-
+        setIsLoadingAuth(true);
+        reloginMutation();
         setAccessType(accessType);
+        setIsLoadingAuth(false);
         quillInstance.setContents(document);
         if (accessType !== "viewer") quillInstance.enable();
       }
@@ -144,7 +148,7 @@ export default function TextEditor() {
         >
           <Box
             className={showNested === true ? "animate-show" : "animate-hide"}
-            position="sticky"
+            position="sticky" // not working
             sx={{
               backgroundColor: isDarkMode
                 ? "hsl(160, 0%, 20%)"
@@ -152,10 +156,13 @@ export default function TextEditor() {
               padding: `${paddingTop} 16px 0 `,
               transition: "padding-top 0.3s ease",
               top: 0,
-              height: "100vh",
-              overflowY: "scroll",
+              height: "400px",
 
-              display: showNested ? "flex" : "none",
+              display: {
+                xs: showNested ? "flex" : "none",
+                sm: showNested ? "flex" : "none",
+                md: showNested ? "flex" : "none",
+              },
             }}
             flexDirection="column"
           >
@@ -183,7 +190,7 @@ export default function TextEditor() {
         </Box>
         <Box
           display="flex"
-          sx={{ padding: "0 16px", margin: { sm: "0 auto" }, width: "70%" }}
+          sx={{ padding: "0 16px", flexGrow: 1 }}
           flexDirection="column"
         >
           <Box

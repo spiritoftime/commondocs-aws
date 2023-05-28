@@ -13,7 +13,7 @@ import Grid from "@mui/material/Grid";
 import { createFolder, deleteFolder } from "../services/folder";
 import { createDocument } from "../services/document";
 import DeleteIcon from "@mui/icons-material/Delete";
-import useReLoginMutation from "../customHooks/useReLoginMutation";
+import useReLoginMutation from "../../reactQueryMutations/useReLoginMutation";
 
 const Folder = ({
   node,

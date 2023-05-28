@@ -71,7 +71,7 @@ const logout = async (req, res) => {
   res.clearCookie("refreshToken");
   res.status(201).send("Logged out");
 };
-
+// const persistLogin = authenticateToken;
 const persistLogin = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
 
@@ -122,10 +122,11 @@ function generateTokensAndCookies(username, isRefresh, res) {
     httpOnly: false,
     secure: false,
     sameSite: "lax",
+    domain: process.env.NODE_ENV === "production" && "13.229.215.120",
   });
 
   res.setHeader("Authorization", "Bearer " + accessToken);
   res.setHeader("Access-Control-Expose-Headers", "Authorization");
   return { refreshToken, accessToken };
 }
-module.exports = { register, login, logout, persistLogin, generateToken };
+module.exports = { register, login, logout, persistLogin };

@@ -15,7 +15,7 @@ import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import { createFolder } from "../services/folder";
-import useReLoginMutation from "../customHooks/useReLoginMutation";
+import useReLoginMutation from "../../reactQueryMutations/useReLoginMutation";
 import { useMutation } from "@tanstack/react-query";
 import IconButton from "@mui/material/IconButton";
 import { createDocument } from "../services/document";
@@ -52,7 +52,7 @@ const FolderTable = ({ data, tableType, header }) => {
       });
       // create the document
     },
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       setIsLoadingAuth(true);
       reloginMutation();
       navigate(`/documents/${res.data.document.id}`);
@@ -73,7 +73,6 @@ const FolderTable = ({ data, tableType, header }) => {
       // create the document
     },
     onSuccess: (res) => {
-      console.log("createFolder", res);
       const folderId = res.data.folder.id;
       createDocumentMutation(folderId);
     },
@@ -153,7 +152,6 @@ const FolderTable = ({ data, tableType, header }) => {
                   }}
                   key={idx}
                   sx={{
-                    cursor: "pointer",
                     "&:hover": {
                       backgroundColor: "#a9a9a9",
                       color: "#000000",
@@ -162,6 +160,7 @@ const FolderTable = ({ data, tableType, header }) => {
                       boxShadow:
                         "0px 5px 15px rgba(0, 0, 0, 0.2)" /* horizontal offset, vertical offset, blur radius, and color */,
                     },
+                    cursor: "pointer",
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
                 >

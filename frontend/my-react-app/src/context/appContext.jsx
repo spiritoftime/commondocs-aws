@@ -31,8 +31,8 @@ const AppProvider = ({ children }) => {
     createdDocuments,
     createdFolders,
   } = authDetails;
-  function createTreeData(root, documents, folders) { 
-    // for react-tree-view
+  function createTreeData(root, documents, folders) {
+    // create the array for nestedFolder
     (documents || []).forEach((document) => {
       document.droppable = false;
       document.type = "document";
@@ -41,7 +41,6 @@ const AppProvider = ({ children }) => {
       folder.droppable = true;
       folder.type = "folder";
     });
-    // tree for sharing access to subfolders and subdocuments
     function createTree(root, documents, folders) {
       const tree = { null: root }; // the key will be 'null'
       // traverse through all folders and add them to the tree first
