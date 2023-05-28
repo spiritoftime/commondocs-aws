@@ -12,7 +12,7 @@ import DocumentBar from "../components/DocumentBar";
 import NestedFolders from "../components/NestedFolders";
 import { useNavigate } from "react-router-dom";
 import ReactQuillBar, { formats, modules } from "../components/ReactQuillBar";
-import useReLoginMutation from "../../reactQueryMutations/useReLoginMutation";
+import useReLoginMutation from "../customHooks/useReLoginMutation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
@@ -56,7 +56,7 @@ export default function TextEditor() {
     const backendURL =
       import.meta.env.VITE_ENV === "production"
         ? "13.229.215.120"
-        : "http://localhost:3001";
+        : "http://localhost:3000";
     const s = io(backendURL);
     const handleScroll = () => {
       const isScrolled = window.scrollY > 0;
@@ -85,10 +85,7 @@ export default function TextEditor() {
       (document, title, residingFolder, accessType) => {
         setDocumentTitle(title);
         setResidingFolder(residingFolder);
-        setIsLoadingAuth(true);
-        reloginMutation();
         setAccessType(accessType);
-        setIsLoadingAuth(false);
         quillInstance.setContents(document);
         if (accessType !== "viewer") quillInstance.enable();
       }
@@ -148,7 +145,7 @@ export default function TextEditor() {
         >
           <Box
             className={showNested === true ? "animate-show" : "animate-hide"}
-            position="sticky" // not working
+            position="sticky"
             sx={{
               backgroundColor: isDarkMode
                 ? "hsl(160, 0%, 20%)"
@@ -156,13 +153,9 @@ export default function TextEditor() {
               padding: `${paddingTop} 16px 0 `,
               transition: "padding-top 0.3s ease",
               top: 0,
-              height: "400px",
-
-              display: {
-                xs: showNested ? "flex" : "none",
-                sm: showNested ? "flex" : "none",
-                md: showNested ? "flex" : "none",
-              },
+              height: "100vh",
+              overflowY: "scroll",
+              display: showNested ? "flex" : "none",
             }}
             flexDirection="column"
           >
