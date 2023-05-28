@@ -121,10 +121,6 @@ app.get("/*", function (req, res) {
   );
 });
 
-app.get("/posts", authenticateToken, (req, res) => {
-  res.status(200).json({ message: "you made it!" });
-});
-
 const port =
   process.env.NODE_ENV === "production"
     ? process.env.PROD_PORT
