@@ -2,7 +2,7 @@ const db = require("../db/models");
 const { User } = db;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { generateToken } = require("../controllers/auth");
+const {generateToken} = require('../controllers/auth.js')
 async function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
 
@@ -68,5 +68,6 @@ async function refreshTokenMiddleware(req, res, next) {
     }
   );
 }
+
 
 module.exports = authenticateToken;

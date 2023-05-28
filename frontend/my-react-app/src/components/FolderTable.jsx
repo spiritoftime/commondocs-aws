@@ -73,6 +73,7 @@ const FolderTable = ({ data, tableType, header }) => {
       // create the document
     },
     onSuccess: (res) => {
+      console.log("createFolder", res);
       const folderId = res.data.folder.id;
       createDocumentMutation(folderId);
     },
@@ -152,6 +153,7 @@ const FolderTable = ({ data, tableType, header }) => {
                   }}
                   key={idx}
                   sx={{
+                    cursor: "pointer",
                     "&:hover": {
                       backgroundColor: "#a9a9a9",
                       color: "#000000",
@@ -160,7 +162,6 @@ const FolderTable = ({ data, tableType, header }) => {
                       boxShadow:
                         "0px 5px 15px rgba(0, 0, 0, 0.2)" /* horizontal offset, vertical offset, blur radius, and color */,
                     },
-                    cursor: "pointer",
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
                 >

@@ -63,7 +63,7 @@ async function queryUsersWithAccess(folderId) {
         where: { id: folderId },
         attributes: [],
         through: {
-          model: db.UserFolderAccess,
+          model: UserFolderAccess,
           attributes: ["role"],
         },
         required: false,

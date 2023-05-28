@@ -12,28 +12,26 @@ import DocumentBar from "../components/DocumentBar";
 import NestedFolders from "../components/NestedFolders";
 import { useNavigate } from "react-router-dom";
 import ReactQuillBar, { formats, modules } from "../components/ReactQuillBar";
-import useReLoginMutation from "../customHooks/useReLoginMutation";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 const SAVE_INTERVAL_MS = 1000;
 
 export default function TextEditor() {
-  const { authDetails, setAuthDetails, setIsLoadingAuth, isDarkMode } =
-    useAppContext();
+  const { authDetails, setIsLoadingAuth, isDarkMode } = useAppContext();
+  const { id: documentId } = useParams();
+
   const [documentTitle, setDocumentTitle] = useState("Untitled Document");
   const [accessType, setAccessType] = useState("");
-  const { id: documentId } = useParams();
+  const [socket, setSocket] = useState();
+  const [scrolled, setScrolled] = useState(false);
+  const [residingFolder, setResidingFolder] = useState(null);
   const [users, setUsers] = useState([]);
-  const reloginMutation = useReLoginMutation();
   const [documentSaved, setDocumentSaved] = useState("All changes saved!");
   const navigate = useNavigate();
   const quillRef = useRef();
   const saveTimeout = useRef(null);
-  const [socket, setSocket] = useState();
-  const [scrolled, setScrolled] = useState(false);
-
-  const [residingFolder, setResidingFolder] = useState(null);
   const paddingTop = scrolled ? "80px" : "16px";
   const theme = useTheme();
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
@@ -55,7 +53,7 @@ export default function TextEditor() {
   useEffect(() => {
     const backendURL =
       import.meta.env.VITE_ENV === "production"
-        ? "13.229.215.120"
+        ? "https://commondocs-backend.onrender.com"
         : "http://localhost:3000";
     const s = io(backendURL);
     const handleScroll = () => {
@@ -85,6 +83,7 @@ export default function TextEditor() {
       (document, title, residingFolder, accessType) => {
         setDocumentTitle(title);
         setResidingFolder(residingFolder);
+
         setAccessType(accessType);
         quillInstance.setContents(document);
         if (accessType !== "viewer") quillInstance.enable();
@@ -155,6 +154,7 @@ export default function TextEditor() {
               top: 0,
               height: "100vh",
               overflowY: "scroll",
+
               display: showNested ? "flex" : "none",
             }}
             flexDirection="column"

@@ -119,14 +119,16 @@ function generateTokensAndCookies(username, isRefresh, res) {
   const accessToken = generateToken(payload, "access", "15min");
   const refreshToken = generateToken(payload, "refresh", "3h");
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: false,
-    secure: false,
-    sameSite: "lax",
-    domain: process.env.NODE_ENV === "production" && "13.229.215.120",
+    httpOnly: process.env.NODE_ENV === "production" ? true : false,
+    secure: process.env.NODE_ENV === "production" ? true : false,
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "lax",
+    domain:
+      process.env.NODE_ENV === "production" &&
+      "commondocs-backend.onrender.com",
   });
 
   res.setHeader("Authorization", "Bearer " + accessToken);
   res.setHeader("Access-Control-Expose-Headers", "Authorization");
   return { refreshToken, accessToken };
 }
-module.exports = { generateToken, register, login, logout, persistLogin };
+module.exports = { register, login, logout, persistLogin, generateToken };
