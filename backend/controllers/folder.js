@@ -1,5 +1,5 @@
 const db = require("../db/models");
-const { User, Folder, UserFolderAccess, UserDocumentAccess, Document } = db;
+const { User, Folder, UserFolderAccess, Document } = db;
 const { Op } = require("sequelize");
 const getFolders = async (req, res) => {
   try {

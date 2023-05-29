@@ -1,5 +1,5 @@
 const db = require("../db/models");
-const { User, Document, Folder, UserDocumentAccess, UserFolderAccess } = db;
+const { User, Document, Folder, UserFolderAccess } = db;
 const { Op } = require("sequelize");
 const {
   queryUsersWithAccess,

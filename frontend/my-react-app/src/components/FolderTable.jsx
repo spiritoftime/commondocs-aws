@@ -15,7 +15,7 @@ import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import { createFolder } from "../services/folder";
-import useReLoginMutation from "../../reactQueryMutations/useReLoginMutation";
+import useReLoginMutation from "../customHooks/useReLoginMutation";
 import { useMutation } from "@tanstack/react-query";
 import IconButton from "@mui/material/IconButton";
 import { createDocument } from "../services/document";

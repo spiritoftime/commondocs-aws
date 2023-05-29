@@ -1,6 +1,5 @@
 const db = require("../db/models");
 const { User } = db;
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 async function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];

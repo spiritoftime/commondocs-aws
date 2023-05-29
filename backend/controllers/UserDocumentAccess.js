@@ -1,5 +1,5 @@
 const db = require("../db/models");
-const { User, Document, Folder, UserDocumentAccess, UserFolderAccess } = db;
+const { User, Document, Folder, UserDocumentAccess } = db;
 const { Op } = require("sequelize");
 const addUsersToDocument = async (req, res) => {
   const { people, documentId } = req.body; // add type and change documentId to nodeId

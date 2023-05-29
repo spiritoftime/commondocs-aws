@@ -12,7 +12,7 @@ import DocumentBar from "../components/DocumentBar";
 import NestedFolders from "../components/NestedFolders";
 import { useNavigate } from "react-router-dom";
 import ReactQuillBar, { formats, modules } from "../components/ReactQuillBar";
-import useReLoginMutation from "../../reactQueryMutations/useReLoginMutation";
+import useReLoginMutation from "../customHooks/useReLoginMutation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 

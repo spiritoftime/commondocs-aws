@@ -3,11 +3,9 @@ const authenticateToken = require("./middleware/authenticateToken");
 const express = require("express");
 const db = require("./db/models");
 const { Document } = require("./db/models");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
 const cors = require("cors");
 const app = express();
-const { login, register } = require("./controllers/auth");
 const documentRouter = require("./routes/documentRouter");
 const userRouter = require("./routes/userRouter");
 const folderRouter = require("./routes/folderRouter");
@@ -27,14 +25,14 @@ const buildPath = path.join(_dirname, "../frontend/my-react-app/dist");
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["http://13.229.215.120",'http://localhost:3000'],
     methods: ["GET", "POST"],
   },
 });
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*",
+    origin:  ["http://13.229.215.120",'http://localhost:3000'],
     credentials: true,
   })
 );
@@ -42,7 +40,6 @@ let documentToUsers = {};
 app.use(express.json());
 io.on("connection", (socket) => {
   socket.on("get-document", async (documentId, username) => {
-    console.count("connect ran");
     socket.username = username;
     if (documentToUsers[documentId]) {
       documentToUsers[documentId].add(username);
