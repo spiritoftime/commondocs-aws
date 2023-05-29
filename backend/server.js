@@ -24,7 +24,6 @@ const server = http.createServer(app);
 const path = require("path");
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../frontend/my-react-app/dist");
-app.use(express.static(buildPath));
 
 const io = new Server(server, {
   cors: {
@@ -52,7 +51,7 @@ io.on("connection", (socket) => {
     }
     const document = await findDocument(documentId, username);
     const accessType = await getAccessType(documentId, username);
-    await socket.emit(
+    socket.emit(
       "load-document",
       document.data,
       document.text,
@@ -109,6 +108,7 @@ app.use("/users", authenticateToken, userRouter);
 app.use("/folders", authenticateToken, folderRouter);
 app.use("/folderAccess", authenticateToken, folderAccessRouter);
 app.use("/documentAccess", authenticateToken, documentAccessRouter);
+app.use(express.static(buildPath));
 
 app.get("/*", function (req, res) {
   res.sendFile(
@@ -120,8 +120,6 @@ app.get("/*", function (req, res) {
     }
   );
 });
-
-
 
 const port =
   process.env.NODE_ENV === "production"

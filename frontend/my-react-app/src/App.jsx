@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
 import "./index.css";
 import { CssBaseline } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./shared_components/Navbar";
 
-import Profile from "./routes/Profile";
 import usePersistLogin from "./customHooks/usePersistLogin";
-import Redirect from "./routes/Redirect";
+
 import TextEditor from "./routes/TextEditor";
 import Home from "./routes/Home";
 import ProtectedRoute from "./shared_components/ProtectedRoute";
@@ -43,15 +41,7 @@ function App() {
           />
           <Route path="/register" element={<Auth isLogin={false} />} />
           <Route path="/login" element={<Auth isLogin={true} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/createDocument"
-            element={
-              <ProtectedRoute>
-                <Redirect />
-              </ProtectedRoute>
-            }
-          />
+
           <Route
             path="/documents/:id"
             element={
