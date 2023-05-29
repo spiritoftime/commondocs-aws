@@ -7,13 +7,13 @@ async function authenticateToken(req, res, next) {
 
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) return refreshTokenMiddleware(req, res, next);
+  if (!token) refreshTokenMiddleware(req, res, next);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
       if (err.name === "TokenExpiredError") {
         // Access token has expired, attempt to refresh it
-        return refreshTokenMiddleware(req, res, next);
+        refreshTokenMiddleware(req, res, next);
       } else {
         return res
           .status(403)
