@@ -7,7 +7,7 @@ async function authenticateToken(req, res, next) {
 
   const token = authHeader && authHeader.split(" ")[1];
   console.log("token", token);
-  if (token === null)
+  if (!token)
     return res
       .status(401)
       .json({ error: "No access token found, Please login" }); // if user has not login
@@ -30,14 +30,14 @@ async function authenticateToken(req, res, next) {
 }
 async function refreshTokenMiddleware(req, res, next) {
   const refreshToken = req.cookies.refreshToken;
-  if (refreshToken == null)
+  if (!refreshToken)
     return res.status(401).json({ error: "Please relogin or register" }); // no such cookie
   const user = await User.findOne({
     where: { refreshToken: refreshToken },
   });
 
   // next, check if the refreshToken is in the db
-  if (user == null) {
+  if (!user) {
     return res
       .status(403)
       .json({ error: "invalid refresh tokens. please relogin or register" });
