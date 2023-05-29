@@ -6,7 +6,7 @@ async function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
 
   const token = authHeader && authHeader.split(" ")[1];
-
+  console.log("token", token);
   if (token === null)
     return res
       .status(401)
@@ -17,10 +17,12 @@ async function authenticateToken(req, res, next) {
       if (err.name === "TokenExpiredError") {
         // Access token has expired, attempt to refresh it
         return refreshTokenMiddleware(req, res, next);
-      } else
+      } else {
+        console.log(err, err.message);
         return res
           .status(403)
           .json({ error: "Invalid access token, Please login" }); // Invalid token
+      }
     }
 
     refreshTokenMiddleware(req, res, next);
