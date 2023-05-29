@@ -7,7 +7,7 @@ async function authenticateToken(req, res, next) {
 
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) refreshTokenMiddleware(req, res, next);
+  if (!token) return refreshTokenMiddleware(req, res, next);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
@@ -20,10 +20,12 @@ async function authenticateToken(req, res, next) {
           .json({ error: "Invalid access token, Please login" }); // Invalid token
       }
     }
+    refreshTokenMiddleware(req, res, next);
   });
 }
 async function refreshTokenMiddleware(req, res, next) {
   const refreshToken = req.cookies.refreshToken;
+
   if (!refreshToken)
     return res.status(401).json({ error: "Please relogin or register" }); // no such cookie
   const user = await User.findOne({
