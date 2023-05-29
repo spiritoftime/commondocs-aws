@@ -6,11 +6,8 @@ async function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
 
   const token = authHeader && authHeader.split(" ")[1];
-  console.log("token", token);
-  if (!token)
-    return res
-      .status(401)
-      .json({ error: "No access token found, Please login" }); // if user has not login
+
+  if (!token) return refreshTokenMiddleware(req, res, next);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
@@ -18,14 +15,11 @@ async function authenticateToken(req, res, next) {
         // Access token has expired, attempt to refresh it
         return refreshTokenMiddleware(req, res, next);
       } else {
-        console.log(err, err.message);
         return res
           .status(403)
           .json({ error: "Invalid access token, Please login" }); // Invalid token
       }
     }
-
-    refreshTokenMiddleware(req, res, next);
   });
 }
 async function refreshTokenMiddleware(req, res, next) {
