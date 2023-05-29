@@ -3,7 +3,7 @@ export const axiosInstance = axios.create({
   baseURL:
     import.meta.env.VITE_ENV === "production"
       ? import.meta.env.VITE_APP_BASE_URL
-      : "/api",
+      : "http://localhost:3000/api",
   withCredentials: true,
 });
 

@@ -102,12 +102,12 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use("/", authRouter);
-app.use("/documents", authenticateToken, documentRouter);
-app.use("/users", authenticateToken, userRouter);
-app.use("/folders", authenticateToken, folderRouter);
-app.use("/folderAccess", authenticateToken, folderAccessRouter);
-app.use("/documentAccess", authenticateToken, documentAccessRouter);
+app.use("/api/", authRouter);
+app.use("/api/documents", authenticateToken, documentRouter);
+app.use("/api/users", authenticateToken, userRouter);
+app.use("/api/folders", authenticateToken, folderRouter);
+app.use("/api/folderAccess", authenticateToken, folderAccessRouter);
+app.use("/api/documentAccess", authenticateToken, documentAccessRouter);
 app.use(express.static(buildPath));
 
 app.get("/*", function (req, res) {
