@@ -122,7 +122,6 @@ function generateTokensAndCookies(username, isRefresh, res) {
     httpOnly: false,
     secure: false,
     sameSite: "lax",
-    domain: process.env.NODE_ENV === "production" && "13.229.215.120",
   });
 
   res.setHeader("Authorization", "Bearer " + accessToken);

@@ -56,7 +56,7 @@ export default function TextEditor() {
     const backendURL =
       import.meta.env.VITE_ENV === "production"
         ? "13.229.215.120"
-        : "http://localhost:3001";
+        : "http://localhost:3000";
     const s = io(backendURL);
     const handleScroll = () => {
       const isScrolled = window.scrollY > 0;
