@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 const getFolders = async (req, res) => {
   try {
     const { userId } = req.query;
-    console.log(userId);
+
     const myFolders = await Folder.findAll({
       where: { createdBy: userId },
       attributes: ["text", "updatedAt"],
@@ -76,12 +76,12 @@ const createFolder = async (req, res) => {
   try {
     const parentFolder = Folder.findByPk(folderId);
     const folder = await Folder.create({
-      createdBy: accessType === "creator" ? createdBy : parentFolder.createdBy,
+      createdBy: accessType === "creator" ? createdBy : parentFolder,
       parent: folderId,
       text: title,
     });
     await UserFolderAccess.create({
-      userId: accessType === "creator" ? createdBy : parentFolder.createdBy,
+      userId: accessType === "creator" ? createdBy : parentFolder,
       folderId: folder.id,
       role: "creator",
     });
