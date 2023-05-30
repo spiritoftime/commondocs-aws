@@ -1,7 +1,8 @@
-# CommonDocs 
+# CommonDocs - Tech Documentation for the community
 <code><img src="https://commondocs.vercel.app/assets/image-removebg-preview-09ec5f7e.png" alt="commondocs-preview"></code> 
 # Deployed on AWS:  [Deployed Link](http://13.229.215.120/)
 ## Full Stack Application for users to collaborate, edit, share and organize documents. *Project 3 for Rocket Academy Bootcamp*
+## [Project Pitch Slides](https://www.canva.com/design/DAFkTn_L46s/TQWS_x35YydScwHDmuOTEQ/edit?utm_content=DAFkTn_L46s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) 
 ### Features - Create, Update, Delete, Read Documents on realtime 
 - Folders and documents directory for smooth user interface 
 - Organizing documents under folders & nesting/ unnesting them for easy categorisation 
@@ -10,8 +11,9 @@
 - Custom Built Authentication system 
 
 ### Future Improvements
-- Copy pasting of images via S3 Bucket
+- Autoformat code
 - Public access to folders
+- shortcut keys
 ### Tech Used 
 #### ERD Diagram:
 ![image](https://github.com/spiritoftime/commondocs/assets/98036884/648e7043-4679-4799-a32e-cf7208d9b260)
