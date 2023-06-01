@@ -76,12 +76,12 @@ const createFolder = async (req, res) => {
   try {
     const parentFolder = Folder.findByPk(folderId);
     const folder = await Folder.create({
-      createdBy: accessType === "creator" ? createdBy : parentFolder,
+      createdBy: accessType === "creator" ? createdBy : parentFolder.createdBy,
       parent: folderId,
       text: title,
     });
     await UserFolderAccess.create({
-      userId: accessType === "creator" ? createdBy : parentFolder,
+      userId: accessType === "creator" ? createdBy : parentFolder.createdBy,
       folderId: folder.id,
       role: "creator",
     });
